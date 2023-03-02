@@ -4,7 +4,6 @@ import br.com.cafi.salaodesktop.modelo.entidades.Usuario;
 
 
 public class Teste {
-
     public static void main(String[] args) {
         DAO<Usuario> dao = new DAO<>(Usuario.class);
         Usuario u = new Usuario();

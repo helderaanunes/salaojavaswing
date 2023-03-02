@@ -5,6 +5,7 @@
 package br.com.cafi.salaodesktop.visao;
 
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,6 +43,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -79,9 +81,19 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu5.setText("Servico");
 
         jMenuItem3.setText("Cadastrar Serviço");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem3);
 
         jMenuItem4.setText("Listar Serviços");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem4);
 
         jMenu1.add(jMenu5);
@@ -102,6 +114,15 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Vendas");
+
+        jMenuItem8.setText("jMenuItem8");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem8);
+
         jMenuBar1.add(jMenu3);
 
         jMenu7.setText("Administrativo");
@@ -144,11 +165,11 @@ public class TelaInicial extends javax.swing.JFrame {
         CadastrarProduto cp = new CadastrarProduto(jif);
         jif.add(cp);
         desktopPane.add(jif);
-        
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-           JInternalFrame jif = new JInternalFrame("Cadastrar Usuário");
+        JInternalFrame jif = new JInternalFrame("Cadastrar Usuário");
         jif.setBounds(0, 0, 400, 600);
         jif.setVisible(true);
         jif.setClosable(true);
@@ -156,6 +177,31 @@ public class TelaInicial extends javax.swing.JFrame {
         jif.add(cp);
         desktopPane.add(jif);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        JInternalFrame jif = new JInternalFrame("Cadastrar Serviço");
+        jif.setBounds(0, 0, 400, 600);
+        jif.setVisible(true);
+        jif.setClosable(true);
+        CadastrarServico obj = new CadastrarServico();
+        jif.add(obj);
+        desktopPane.add(jif);
+        
+       
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+       JInternalFrame jif = new JInternalFrame("Listar Serviço");
+        jif.setBounds(0, 0, 400, 600);
+        jif.setVisible(true);
+        jif.setClosable(true);
+        CadastrarServico obj = new CadastrarServico();
+        jif.add(obj);
+        desktopPane.add(jif);       
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,5 +256,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
 }
