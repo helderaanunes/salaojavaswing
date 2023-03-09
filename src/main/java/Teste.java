@@ -1,15 +1,25 @@
 
+import bo.UsuarioBO;
 import br.com.cafi.salaodesktop.modelo.dao.DAO;
+import br.com.cafi.salaodesktop.modelo.dao.SimpleEntityManager;
 import br.com.cafi.salaodesktop.modelo.entidades.Usuario;
 
-
 public class Teste {
+
     public static void main(String[] args) {
-        DAO<Usuario> dao = new DAO<>(Usuario.class);
-        Usuario u = new Usuario();
-        u.setLogin("klecio");
-        u.setNome("klecio");
-        u.setSenha("321");
-        dao.abrir().create(u).fechar();
+        String persistenceUnitName = "HELDERnomeDoPersistence";
+         
+        SimpleEntityManager simpleEntityManager = new SimpleEntityManager(persistenceUnitName);
+         
+        /**
+         * THE SERVICE LAYER ENCAPSULATES EVERY BEGIN/COMMIT/ROLLBACK
+         */
+        UsuarioBO costumerService = new UsuarioBO(simpleEntityManager);
+         
+        for(Usuario c : costumerService.findAll()){
+            System.out.println(c.getNome());
+        }
+         
+        simpleEntityManager.close();
     }
 }

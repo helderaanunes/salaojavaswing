@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +19,7 @@ public class OrdemServico {
     @Id
     @GeneratedValue
     private int id;
+    @Temporal(TemporalType.DATE)
     private Date date;
     @ManyToOne
     private Usuario operador;

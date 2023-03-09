@@ -1,62 +1,43 @@
 package br.com.cafi.salaodesktop.modelo.dao;
 
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  * @author Hélder
  */
-public class DAO<E> {
-
-    private static EntityManagerFactory emf;
-    private EntityManager em;
-    private Class<E> entidade;
-
-    static {
-        try {
-            emf = Persistence.createEntityManagerFactory("HELDERnomeDoPersistence");
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
+public class DAO<PK, T> {
+    private EntityManager entityManager;
+ 
+    public DAO(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
-
-    public DAO(Class<E> entidade) {
-        this.entidade = entidade;
-        em = emf.createEntityManager();
+ 
+    public T getById(PK pk) {
+        return (T) entityManager.find(getTypeClass(), pk);
     }
-
-    public DAO<E> abrir() {
-        em.getTransaction().begin();
-        return this;
+ 
+    public void save(T entity) {
+        entityManager.persist(entity);
     }
-
-    public DAO<E> fechar() {
-        em.getTransaction().commit();
-        return this;
+ 
+    public void update(T entity) {
+        entityManager.merge(entity);
     }
-
-    public DAO<E> create(E entidade) {
-        em.persist(entidade);
-        return this;
+ 
+    public void delete(T entity) {
+        entityManager.remove(entity);
     }
-
-    public E encontrarPeloId(Object id) {
-        return em.find(entidade, id);
+ 
+    public List<T> findAll() {
+        return entityManager.createQuery(("FROM " + getTypeClass().getName()))
+                .getResultList();
     }
- public DAO<E> delete(int id) {
-		DAO<E> dao = new DAO<E>(entidade);
-		E obj = dao.encontrarPeloId(id);
-		em.remove(em.contains(obj) ? obj : em.merge(obj));
-		return this;
-	}
-        
-        public DAO<E> atualizar(E obj) {
-		DAO<E> dao = new DAO<E>(entidade);
-		dao.abrir();
-		em.merge(obj);
-		dao.fechar();
-		return this;
-	}
-
+ 
+    private Class<?> getTypeClass() {
+        Class<?> clazz = (Class<?>) ((ParameterizedType) this.getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[1];
+        return clazz;
+    }
 }
