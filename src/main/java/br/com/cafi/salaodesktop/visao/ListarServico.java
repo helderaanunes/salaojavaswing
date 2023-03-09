@@ -4,17 +4,32 @@
  */
 package br.com.cafi.salaodesktop.visao;
 
+import bo.ServicoBO;
+import br.com.cafi.salaodesktop.modelo.entidades.Servico;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Aluno
  */
 public class ListarServico extends javax.swing.JPanel {
 
+    private List<Servico> lista;
+
     /**
      * Creates new form ListarServico
      */
     public ListarServico() {
         initComponents();
+        ServicoBO bo = new ServicoBO();
+        lista = bo.findAll();
+        DefaultTableModel model
+                    = (DefaultTableModel) jTable1.getModel();
+        for (Servico s : lista) {
+            model.addRow(new Object[]{s.getId(), s.getDescricao(),
+                s.getPreco(), s.getTempo()});
+        }
     }
 
     /**

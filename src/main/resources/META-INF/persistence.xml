@@ -6,6 +6,10 @@
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <!-- Aqui são listadas todas as entidades -->
     <class/>
+    <class>br.com.cafi.salaodesktop.modelo.entidades.ItemServico</class>
+    <class>br.com.cafi.salaodesktop.modelo.entidades.OrdemServico</class>
+    <class>br.com.cafi.salaodesktop.modelo.entidades.Produto</class>
+    <class>br.com.cafi.salaodesktop.modelo.entidades.Servico</class>
     <class>br.com.cafi.salaodesktop.modelo.entidades.Usuario</class>
     <properties>
       <!-- Propriedades JDBC -->

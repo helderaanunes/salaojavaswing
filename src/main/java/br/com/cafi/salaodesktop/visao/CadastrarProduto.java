@@ -5,6 +5,7 @@
 package br.com.cafi.salaodesktop.visao;
 
 import br.com.cafi.salaodesktop.controle.ControleCadastrarProduto;
+import br.com.cafi.salaodesktop.modelo.entidades.Produto;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
@@ -22,6 +23,18 @@ public class CadastrarProduto extends javax.swing.JPanel {
     public CadastrarProduto(JInternalFrame jif) {
         initComponents();
         salvarButton.addActionListener(new ControleCadastrarProduto(this));
+    }
+
+    private Produto produto;
+
+    public CadastrarProduto(JInternalFrame jif, Produto produto) {
+        initComponents();
+        salvarButton.addActionListener(new ControleCadastrarProduto(this));
+        this.produto=produto;
+        this.descricaoTextField.setText(produto.getDescricao());
+        this.precoVendaFormattedTextField.setText(produto.getPrecoVenda()+"");
+        this.precoCompraFormattedTextField.setText(produto.getPrecoCompra()+"");
+        this.quantidadeEstoqueFormattedTextField.setText(produto.getQuantidadeEstoque()+"");
     }
 
     /**
@@ -55,6 +68,11 @@ public class CadastrarProduto extends javax.swing.JPanel {
         precoVendaFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
 
         salvarButton.setText("Salvar");
+        salvarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarButtonActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
 
@@ -121,6 +139,10 @@ public class CadastrarProduto extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salvarButtonActionPerformed
 
     public JTextField getDescricaoTextField() {
         return descricaoTextField;

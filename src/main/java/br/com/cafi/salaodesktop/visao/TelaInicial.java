@@ -74,6 +74,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu4.add(jMenuItem1);
 
         jMenuItem2.setText("Listar Produtos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem2);
 
         jMenu1.add(jMenu4);
@@ -181,6 +186,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         JInternalFrame jif = new JInternalFrame("Cadastrar Serviço");
         jif.setBounds(0, 0, 400, 600);
+        jif.setLayout(null);
         jif.setVisible(true);
         jif.setClosable(true);
         CadastrarServico obj = new CadastrarServico();
@@ -198,10 +204,20 @@ public class TelaInicial extends javax.swing.JFrame {
         jif.setBounds(0, 0, 400, 600);
         jif.setVisible(true);
         jif.setClosable(true);
-        CadastrarServico obj = new CadastrarServico();
+        ListarServico obj = new ListarServico();
         jif.add(obj);
         desktopPane.add(jif);       
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        JInternalFrame jif = new JInternalFrame("Listar Produto");
+        jif.setBounds(0, 0, 400, 600);
+        jif.setVisible(true);
+        jif.setClosable(true);
+        ListarProduto obj = new ListarProduto();
+        jif.add(obj);
+        desktopPane.add(jif);    
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

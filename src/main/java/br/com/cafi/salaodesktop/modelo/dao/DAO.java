@@ -4,14 +4,11 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-/**
- * @author Hélder
- */
 public class DAO<PK, T> {
     private EntityManager entityManager;
  
-    public DAO(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public DAO() {
+        this.entityManager = new SimpleEntityManager("HELDERnomeDoPersistence").getEntityManager();
     }
  
     public T getById(PK pk) {
