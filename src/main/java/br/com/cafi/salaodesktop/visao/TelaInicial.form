@@ -106,10 +106,18 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Cadastrar Usuario"/>
+                    <Property name="text" type="java.lang.String" value="Cadastrar Usu&#xe1;rio"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem7ActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Listar Usu&#xe1;rios"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem9ActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

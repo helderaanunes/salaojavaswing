@@ -37,4 +37,19 @@ public class UsuarioBO {
     public List<Usuario> findAll(){
         return dao.findAll();
     }
+    
+    public void delete (Usuario u){
+        try{
+            simpleEntityManager.beginTransaction();
+            dao.delete(u);
+            simpleEntityManager.commit();
+        }catch(Exception e){
+            e.printStackTrace();
+            simpleEntityManager.rollBack();
+        }
+    }
+    
+    public Usuario getById(int id){
+        return dao.getById(id);
+    }
 }
