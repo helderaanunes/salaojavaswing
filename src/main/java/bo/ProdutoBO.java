@@ -19,7 +19,7 @@ public class ProdutoBO {
     private SimpleEntityManager simpleEntityManager= new SimpleEntityManager("HELDERnomeDoPersistence");
      
     public ProdutoBO(){        
-        dao = new ProdutoDAO();
+        //dao = new ProdutoDAO();
     }
      
     public void save(Produto obj){

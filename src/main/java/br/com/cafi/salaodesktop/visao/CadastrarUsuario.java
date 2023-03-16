@@ -4,6 +4,7 @@
  */
 package br.com.cafi.salaodesktop.visao;
 
+import bo.UsuarioBO;
 import br.com.cafi.salaodesktop.controle.ControleCadastrarProduto;
 import br.com.cafi.salaodesktop.modelo.dao.DAO;
 import br.com.cafi.salaodesktop.modelo.entidades.Usuario;
@@ -133,9 +134,10 @@ public class CadastrarUsuario extends javax.swing.JPanel {
                 u.setNome(nomeTextField.getText());
                 u.setSenha(new String (senhaPasswordField.getPassword()));
                 
-                DAO<Usuario> daoUsuario = new DAO<>(Usuario.class);
-                daoUsuario.abrir().create(u).fechar();
+                UsuarioBO bo = new UsuarioBO();
+                bo.save(u);
                  JOptionPane.showMessageDialog(null,"Usuario Salvo com sucesso");
+                 limparCampos();
             }
             else {
                 JOptionPane.showMessageDialog(null,"Senhas diferentes");
@@ -153,7 +155,13 @@ public class CadastrarUsuario extends javax.swing.JPanel {
     public JButton getSalvarButton() {
         return salvarButton;
     }
-
+private void limparCampos(){
+    loginTextField.setText("");
+    nomeTextField.setText("");
+    senhaPasswordField.setText("");
+    confirmarSenhaPasswordField.setText("");
+}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField confirmarSenhaPasswordField;
     private javax.swing.JButton jButton2;

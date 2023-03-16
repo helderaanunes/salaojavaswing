@@ -25,8 +25,8 @@ public class ControleCadastrarProduto implements ActionListener{
             p.setPrecoVenda(Double.parseDouble(cadastrarProduto.getPrecoVendaFormattedTextField().getText()));
             p.setQuantidadeEstoque(Double.parseDouble(cadastrarProduto.getQuantidadeEstoqueFormattedTextField().getText()));
             
-            DAO<Produto> daoProduto = new DAO<>(Produto.class);
-            daoProduto.abrir().create(p).fechar();
+        //    DAO<Produto> daoProduto = new DAO<>(Produto.class);
+        //    daoProduto.abrir().create(p).fechar();
             JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
             
             cadastrarProduto.getDescricaoTextField().setText("");

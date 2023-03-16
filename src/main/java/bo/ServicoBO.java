@@ -26,12 +26,27 @@ public class ServicoBO {
     public void save(Servico obj){
         try{
             simpleEntityManager.beginTransaction();
+
             dao.save(obj);
             simpleEntityManager.commit();
         }catch(Exception e){
             e.printStackTrace();
             simpleEntityManager.rollBack();
         }
+    }
+    public void delete(Servico obj){
+        try{
+            simpleEntityManager.beginTransaction();
+
+            dao.delete(obj);
+            simpleEntityManager.commit();
+        }catch(Exception e){
+            e.printStackTrace();
+            simpleEntityManager.rollBack();
+        }
+    }
+    public Servico getById(Long id){
+        return dao.getById(id);
     }
      
     public List<Servico> findAll(){

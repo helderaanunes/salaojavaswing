@@ -5,7 +5,7 @@ import br.com.cafi.salaodesktop.modelo.entidades.Servico;
 import javax.persistence.EntityManager;
 
 public class ProdutoDAO extends DAO<Long, Produto> {
-    public ProdutoDAO() {
-        super();
+    public ProdutoDAO(EntityManager entityManager) {
+        super( entityManager);
     }
 }

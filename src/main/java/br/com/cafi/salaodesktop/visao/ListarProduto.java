@@ -126,11 +126,11 @@ public class ListarProduto extends javax.swing.JPanel {
         DefaultTableModel model
                 = (DefaultTableModel) jTable1.getModel();
         Long id = (Long) model.getValueAt(jTable1.getSelectedRow(), 0);
-        ProdutoDAO dao = new ProdutoDAO();
-        Produto obj = dao.getById(id);
-        JOptionPane.showMessageDialog(null, "O id selecionado foi " + id+" "+obj.getDescricao());
+       // ProdutoDAO dao = new ProdutoDAO();
+     //   Produto obj = dao.getById(id);
+       // JOptionPane.showMessageDialog(null, "O id selecionado foi " + id+" "+obj.getDescricao());
         ProdutoBO bo = new ProdutoBO();
-        bo.delete(obj);
+      //  bo.delete(obj);
         carregarTabela();
     }//GEN-LAST:event_jButton2ActionPerformed
 

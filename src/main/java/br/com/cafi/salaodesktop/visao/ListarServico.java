@@ -7,6 +7,7 @@ package br.com.cafi.salaodesktop.visao;
 import bo.ServicoBO;
 import br.com.cafi.salaodesktop.modelo.entidades.Servico;
 import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,16 +17,18 @@ import javax.swing.table.DefaultTableModel;
 public class ListarServico extends javax.swing.JPanel {
 
     private List<Servico> lista;
+    private TelaInicial telaInicial;
 
     /**
      * Creates new form ListarServico
      */
-    public ListarServico() {
+    public ListarServico(TelaInicial telaInicial) {
         initComponents();
+        this.telaInicial = telaInicial;
         ServicoBO bo = new ServicoBO();
         lista = bo.findAll();
         DefaultTableModel model
-                    = (DefaultTableModel) jTable1.getModel();
+                = (DefaultTableModel) jTable1.getModel();
         for (Servico s : lista) {
             model.addRow(new Object[]{s.getId(), s.getDescricao(),
                 s.getPreco(), s.getTempo()});
@@ -68,8 +71,18 @@ public class ListarServico extends javax.swing.JPanel {
         jLabel1.setText("Serviços");
 
         jButton1.setText("Editar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("remover");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -106,6 +119,29 @@ public class ListarServico extends javax.swing.JPanel {
                 .addGap(38, 38, 38))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        DefaultTableModel model
+                = (DefaultTableModel) jTable1.getModel();
+        Long id = (Long) model.getValueAt(jTable1.getSelectedRow(), 0);
+        ServicoBO bo = new ServicoBO();
+        bo.delete(bo.getById(id));
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JInternalFrame jif = new JInternalFrame("Editar Serviço");
+        ServicoBO bo = new ServicoBO();
+        DefaultTableModel model
+                = (DefaultTableModel) jTable1.getModel();
+        Long id = (Long) model.getValueAt(jTable1.getSelectedRow(), 0);
+        Servico s = bo.getById(id);
+        jif.setBounds(0, 0, 400, 600);
+        jif.setVisible(true);
+        jif.setClosable(true);
+        CadastrarServico obj = new CadastrarServico(s);
+        jif.add(obj);
+        telaInicial.getDesktopPane().add(jif);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,6 +4,7 @@
  */
 package br.com.cafi.salaodesktop.visao;
 
+import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
@@ -186,7 +187,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         JInternalFrame jif = new JInternalFrame("Cadastrar Serviço");
         jif.setBounds(0, 0, 400, 600);
-        jif.setLayout(null);
         jif.setVisible(true);
         jif.setClosable(true);
         CadastrarServico obj = new CadastrarServico();
@@ -204,7 +204,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jif.setBounds(0, 0, 400, 600);
         jif.setVisible(true);
         jif.setClosable(true);
-        ListarServico obj = new ListarServico();
+        ListarServico obj = new ListarServico(this);
         jif.add(obj);
         desktopPane.add(jif);       
     }//GEN-LAST:event_jMenuItem4ActionPerformed
@@ -253,6 +253,16 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
     }
+
+    public JDesktopPane getDesktopPane() {
+        return desktopPane;
+    }
+
+    public void setDesktopPane(JDesktopPane desktopPane) {
+        this.desktopPane = desktopPane;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;

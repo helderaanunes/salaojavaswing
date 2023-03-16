@@ -7,8 +7,8 @@ import javax.persistence.EntityManager;
 public class DAO<PK, T> {
     private EntityManager entityManager;
  
-    public DAO() {
-        this.entityManager = new SimpleEntityManager("HELDERnomeDoPersistence").getEntityManager();
+    public DAO(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
  
     public T getById(PK pk) {

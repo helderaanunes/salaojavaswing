@@ -18,8 +18,8 @@ public class UsuarioBO {
      
     private SimpleEntityManager simpleEntityManager;
      
-    public UsuarioBO(SimpleEntityManager simpleEntityManager){
-        this.simpleEntityManager = simpleEntityManager;
+    public UsuarioBO(){
+         this.simpleEntityManager = new SimpleEntityManager("HELDERnomeDoPersistence");
         dao = new UsuarioDAO(simpleEntityManager.getEntityManager());
     }
      

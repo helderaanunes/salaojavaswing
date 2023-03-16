@@ -4,6 +4,7 @@
  */
 package br.com.cafi.salaodesktop.visao;
 
+import bo.ServicoBO;
 import br.com.cafi.salaodesktop.modelo.dao.DAO;
 import br.com.cafi.salaodesktop.modelo.entidades.Servico;
 import br.com.cafi.salaodesktop.modelo.entidades.Usuario;
@@ -20,8 +21,15 @@ public class CadastrarServico extends javax.swing.JPanel {
      */
     public CadastrarServico() {
         initComponents();
+        servico=new Servico();
     }
 
+    private Servico servico;
+     public CadastrarServico(Servico servico) {
+        initComponents();
+        this.servico=servico;
+        carregarCampos();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,6 +48,8 @@ public class CadastrarServico extends javax.swing.JPanel {
         precoFormattedTextField = new javax.swing.JFormattedTextField();
         tempoFormattedTextField = new javax.swing.JFormattedTextField();
         jButton1 = new javax.swing.JButton();
+
+        setName(""); // NOI18N
 
         jLabel1.setText("Código:");
 
@@ -118,13 +128,16 @@ public class CadastrarServico extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DAO<Servico> dao = new DAO<>(Servico.class);
-        Servico objParaSalvar = new Servico();
-        objParaSalvar.setDescricao(descricaoTextField.getText());
-        objParaSalvar.setPreco(Double.parseDouble(precoFormattedTextField.getText().replace(",",".")));
-        objParaSalvar.setTempo(Integer.parseInt(tempoFormattedTextField.getText()));
-        dao.abrir().create(objParaSalvar).fechar();
+
+        ServicoBO bo = new ServicoBO();
+         
+        servico.setDescricao(descricaoTextField.getText());
+        servico.setPreco(Double.parseDouble(precoFormattedTextField.getText().replace(",",".")));
+        servico.setTempo(Integer.parseInt(tempoFormattedTextField.getText()));
         
+//        if
+//        bo.save(objParaSalvar);
+//        
          JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         descricaoTextField.setText("");
         precoFormattedTextField.setText("");
@@ -145,4 +158,11 @@ public class CadastrarServico extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField precoFormattedTextField;
     private javax.swing.JFormattedTextField tempoFormattedTextField;
     // End of variables declaration//GEN-END:variables
+
+    private void carregarCampos() {
+       idTextField.setText(servico.getId()+"");
+       descricaoTextField.setText(servico.getDescricao());
+       precoFormattedTextField.setText(servico.getPreco()+"");
+       tempoFormattedTextField.setText(servico.getTempo()+"");
+    }
 }
