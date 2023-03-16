@@ -7,6 +7,7 @@ package br.com.cafi.salaodesktop.visao;
 import bo.UsuarioBO;
 import br.com.cafi.salaodesktop.modelo.entidades.Usuario;
 import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,9 +20,13 @@ public class ListarUsuario extends javax.swing.JPanel {
     /**
      * Creates new form ListarUsuario
      */
-    public ListarUsuario() {
+    private TelaInicial telaInicial;
+    JInternalFrame jif;
+    public ListarUsuario(TelaInicial telaInicial,JInternalFrame jif) {
         initComponents();
         carregarTabela();
+        this.jif=jif;
+        this.telaInicial=telaInicial;
     }
 
     private void carregarTabela() {
@@ -30,11 +35,12 @@ public class ListarUsuario extends javax.swing.JPanel {
         List<Usuario> lista = bo.findAll();
         DefaultTableModel model
                 = (DefaultTableModel) jTable1.getModel();
-        for (Usuario obj : lista){
-            model.addRow(new Object[]{obj.getId()+"",
-            obj.getNome(),obj.getLogin()});
+        for (Usuario obj : lista) {
+            model.addRow(new Object[]{obj.getId() + "",
+                obj.getNome(), obj.getLogin()});
         }
     }
+
     private void removerTodasLinhas() {
         DefaultTableModel model
                 = (DefaultTableModel) jTable1.getModel();
@@ -76,6 +82,11 @@ public class ListarUsuario extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Editar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Remover");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -109,16 +120,38 @@ public class ListarUsuario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(null, "Deseja remover?");
+        if (opcao == JOptionPane.YES_OPTION) {
+            DefaultTableModel model
+                    = (DefaultTableModel) jTable1.getModel();
+            int id = Integer.parseInt(model.getValueAt(jTable1.getSelectedRow(), 0) + "");
+            UsuarioBO bo = new UsuarioBO();
+            Usuario u = bo.getById(id);
+            System.out.println("Tentando apagar o usuário " + u.getNome());
+            bo.delete(u);
+            
+            carregarTabela();
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         DefaultTableModel model
                 = (DefaultTableModel) jTable1.getModel();
-        int id = Integer.parseInt(model.getValueAt(jTable1.getSelectedRow(), 0)+"");
+        int id = Integer.parseInt(model.getValueAt(jTable1.getSelectedRow(), 0) + "");
         UsuarioBO bo = new UsuarioBO();
         Usuario u = bo.getById(id);
-        System.out.println("Tentando apagar o usuário "+u.getNome());
-        bo.delete(u);
-        JOptionPane.showConfirmDialog(null, "Removido com sucesso!");
-        carregarTabela();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        //abrir novo internalframe, devido isso, precisamos do desktoppanel da 
+        //tela inicial
+        JInternalFrame jif = new JInternalFrame("Editar Usuário");
+        jif.setBounds(0, 0, 400, 600);
+        jif.setVisible(true);
+        jif.setClosable(true);
+        CadastrarUsuario cp = new CadastrarUsuario(jif,u);
+        jif.add(cp);
+        this.telaInicial.getDesktopPane().add(jif);
+        this.jif.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

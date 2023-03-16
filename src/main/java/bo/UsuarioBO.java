@@ -33,6 +33,16 @@ public class UsuarioBO {
             simpleEntityManager.rollBack();
         }
     }
+    public void update(Usuario usuario){
+        try{
+            simpleEntityManager.beginTransaction();
+            dao.update(usuario);
+            simpleEntityManager.commit();
+        }catch(Exception e){
+            e.printStackTrace();
+            simpleEntityManager.rollBack();
+        }
+    }
      
     public List<Usuario> findAll(){
         return dao.findAll();

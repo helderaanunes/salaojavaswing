@@ -23,8 +23,17 @@ public class CadastrarUsuario extends javax.swing.JPanel {
     /**
      * Creates new form CadastrarProduto
      */
+    private Usuario usuario;
+
     public CadastrarUsuario(JInternalFrame jif) {
         initComponents();
+        usuario = new Usuario();
+    }
+
+    public CadastrarUsuario(JInternalFrame jif, Usuario usuario) {
+        initComponents();
+        this.usuario = usuario;
+        carregarDados();
     }
 
     /**
@@ -126,25 +135,26 @@ public class CadastrarUsuario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
-        if( !loginTextField.getText().equals("") 
-                && !(new String (senhaPasswordField.getPassword()).trim().equals(""))){
-            if (new String (confirmarSenhaPasswordField.getPassword()).equals(new String (senhaPasswordField.getPassword()))){
-                Usuario u = new Usuario();
-                u.setLogin(loginTextField.getText());
-                u.setNome(nomeTextField.getText());
-                u.setSenha(new String (senhaPasswordField.getPassword()));
-                
+        if (!loginTextField.getText().equals("")
+                && !(new String(senhaPasswordField.getPassword()).trim().equals(""))) {
+            if (new String(confirmarSenhaPasswordField.getPassword()).equals(new String(senhaPasswordField.getPassword()))) {
+                usuario.setLogin(loginTextField.getText());
+                usuario.setNome(nomeTextField.getText());
+                usuario.setSenha(new String(senhaPasswordField.getPassword()));
+
                 UsuarioBO bo = new UsuarioBO();
-                bo.save(u);
-                 JOptionPane.showMessageDialog(null,"Usuario Salvo com sucesso");
-                 limparCampos();
+                if (usuario.getId() == 0) {
+                    bo.save(usuario);
+                } else {
+                    bo.update(usuario);
+                }
+                JOptionPane.showMessageDialog(null, "Usuario Salvo com sucesso");
+                limparCampos();
+            } else {
+                JOptionPane.showMessageDialog(null, "Senhas diferentes");
             }
-            else {
-                JOptionPane.showMessageDialog(null,"Senhas diferentes");
-            }
-        }
-        else{
-             JOptionPane.showMessageDialog(null,"campos em branco");
+        } else {
+            JOptionPane.showMessageDialog(null, "campos em branco");
         }
     }//GEN-LAST:event_salvarButtonActionPerformed
 
@@ -155,13 +165,18 @@ public class CadastrarUsuario extends javax.swing.JPanel {
     public JButton getSalvarButton() {
         return salvarButton;
     }
-private void limparCampos(){
-    loginTextField.setText("");
-    nomeTextField.setText("");
-    senhaPasswordField.setText("");
-    confirmarSenhaPasswordField.setText("");
-}
-    
+
+    private void limparCampos() {
+        loginTextField.setText("");
+        nomeTextField.setText("");
+        senhaPasswordField.setText("");
+        confirmarSenhaPasswordField.setText("");
+    }
+
+    private void carregarDados() {
+        loginTextField.setText(usuario.getLogin());
+        nomeTextField.setText(usuario.getNome());
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField confirmarSenhaPasswordField;
     private javax.swing.JButton jButton2;
