@@ -7,19 +7,9 @@ import br.com.cafi.salaodesktop.modelo.entidades.Usuario;
 public class Teste {
 
     public static void main(String[] args) {
-        String persistenceUnitName = "HELDERnomeDoPersistence";
-         
-        SimpleEntityManager simpleEntityManager = new SimpleEntityManager(persistenceUnitName);
-         
-        /**
-         * THE SERVICE LAYER ENCAPSULATES EVERY BEGIN/COMMIT/ROLLBACK
-         */
-        UsuarioBO costumerService = new UsuarioBO(simpleEntityManager);
-         
-        for(Usuario c : costumerService.findAll()){
-            System.out.println(c.getNome());
-        }
-         
-        simpleEntityManager.close();
+        UsuarioBO bo = new UsuarioBO();
+        Usuario u =
+        bo.getUsuarioByLoginSenha("Manu", "1234");
+        System.out.println(u.getNome());
     }
 }

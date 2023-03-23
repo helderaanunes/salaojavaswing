@@ -4,8 +4,11 @@
  */
 package br.com.cafi.salaodesktop.visao;
 
+import bo.UsuarioBO;
 import br.com.cafi.salaodesktop.controle.ControleLogin;
+import br.com.cafi.salaodesktop.modelo.entidades.Usuario;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -20,9 +23,6 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
-        ControleLogin cl = new ControleLogin(this);
-        fecharButton.addActionListener(cl);
-        entrarButton.addActionListener(cl);
     }
 
     /**
@@ -59,6 +59,11 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel3.setText("Imagem");
 
         entrarButton.setText("Entrar");
+        entrarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                entrarButtonActionPerformed(evt);
+            }
+        });
 
         fecharButton.setText("Fechar");
         fecharButton.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +129,25 @@ public class TelaLogin extends javax.swing.JFrame {
     private void fecharButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharButtonActionPerformed
        
     }//GEN-LAST:event_fecharButtonActionPerformed
+
+    private void entrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarButtonActionPerformed
+        // 1 pegar o conteudo do formulário
+        String login = loginTextField.getText();
+        String senha = new String (senhaPasswordField.getPassword());
+         // instanciar um bo
+         UsuarioBO bo = new UsuarioBO();
+        // chamar o metodo utilizando os dados do foormulároi
+        Usuario u = bo.getUsuarioByLoginSenha(login, senha);
+        // se o objeto for nulo, tá errado 
+        if (u==null){
+            JOptionPane.showMessageDialog(null, "Usuário ou senha incorrreto.");
+        }
+        //se for diferente de nulo tá legal! Entra na tela inicial e fecha a de login
+        else{
+             new TelaInicial(u).setVisible(true);
+             this.dispose();
+        }
+    }//GEN-LAST:event_entrarButtonActionPerformed
 
     /**
      * @param args the command line arguments

@@ -37,4 +37,10 @@ public class DAO<PK, T> {
                 .getGenericSuperclass()).getActualTypeArguments()[1];
         return clazz;
     }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+    
+    
 }

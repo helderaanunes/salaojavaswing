@@ -4,6 +4,7 @@
  */
 package br.com.cafi.salaodesktop.visao;
 
+import br.com.cafi.salaodesktop.modelo.entidades.Usuario;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -17,8 +18,9 @@ public class TelaInicial extends javax.swing.JFrame {
     /**
      * Creates new form TelaInicial
      */
-    public TelaInicial() {
+    public TelaInicial(Usuario usuario) {
         initComponents();
+        this.usuarioLogado=usuario;
     }
 
     /**
@@ -49,6 +51,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu8 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,6 +157,14 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jMenu7.add(jMenu8);
 
+        jMenuItem10.setText("Sair");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem10);
+
         jMenuBar1.add(jMenu7);
 
         setJMenuBar(jMenuBar1);
@@ -238,6 +249,14 @@ public class TelaInicial extends javax.swing.JFrame {
         desktopPane.add(jif); 
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        int op = JOptionPane.showConfirmDialog(null, usuarioLogado.getNome()+" deseja sair?");
+        if (op==JOptionPane.YES_OPTION){
+            new TelaLogin().setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -268,7 +287,7 @@ public class TelaInicial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaInicial().setVisible(true);
+                new TelaInicial(null).setVisible(true);
             }
         });
     }
@@ -282,7 +301,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     
     
-
+    private Usuario usuarioLogado;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu jMenu1;
@@ -295,6 +314,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
