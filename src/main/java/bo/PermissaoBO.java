@@ -5,8 +5,8 @@
 package bo;
 
 import br.com.cafi.salaodesktop.modelo.dao.SimpleEntityManager;
-import br.com.cafi.salaodesktop.modelo.dao.UsuarioDAO;
-import br.com.cafi.salaodesktop.modelo.entidades.Usuario;
+import br.com.cafi.salaodesktop.modelo.dao.PermissaoDAO;
+import br.com.cafi.salaodesktop.modelo.entidades.Permissao;
 import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -15,31 +15,29 @@ import javax.persistence.Query;
  *
  * @author Aluno
  */
-public class UsuarioBO {
+public class PermissaoBO {
 
-    private UsuarioDAO dao;
+    private PermissaoDAO dao;
 
     private SimpleEntityManager simpleEntityManager;
 
-    public UsuarioBO() {
+    public PermissaoBO() {
         this.simpleEntityManager = new SimpleEntityManager("HELDERnomeDoPersistence");
-        dao = new UsuarioDAO(simpleEntityManager.getEntityManager());
+        dao = new PermissaoDAO(simpleEntityManager.getEntityManager());
     }
 
-    public Usuario save(Usuario usuario) {
+    public void save(Permissao usuario) {
         try {
             simpleEntityManager.beginTransaction();
             dao.save(usuario);
             simpleEntityManager.commit();
-            return usuario;
         } catch (Exception e) {
             e.printStackTrace();
             simpleEntityManager.rollBack();
-            return null;
         }
     }
 
-    public void update(Usuario usuario) {
+    public void update(Permissao usuario) {
         try {
             simpleEntityManager.beginTransaction();
             dao.update(usuario);
@@ -50,11 +48,11 @@ public class UsuarioBO {
         }
     }
 
-    public List<Usuario> findAll() {
+    public List<Permissao> findAll() {
         return dao.findAll();
     }
 
-    public void delete(Usuario u) {
+    public void delete(Permissao u) {
         try {
             simpleEntityManager.beginTransaction();
             dao.delete(u);
@@ -65,18 +63,29 @@ public class UsuarioBO {
         }
     }
 
-    public Usuario getById(int id) {
+    public Permissao getById(int id) {
         return dao.getById(id);
     }
 
-    public Usuario getUsuarioByLoginSenha(String login, String senha) {
+    public List<Permissao> getListPermissaoOrdenadoNome() {
         Query query = dao.getEntityManager().createQuery(
-                "From Usuario where login = ?1 and senha = ?2"
+                "From Permissao order by descricao asc"
         );
-        query.setParameter(1, login);
-        query.setParameter(2, senha);
         try {
-            return (Usuario) query.getSingleResult();
+            return  query.getResultList();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public Permissao getPermissaoByDescricao(String descricao){
+        Query query = dao.getEntityManager().createQuery(
+                "From Permissao where descricao = ?1"
+        );
+        query.setParameter(1, descricao);
+        try {
+            return  (Permissao) query.getSingleResult();
         } catch (NoResultException e) {
             e.printStackTrace();
             return null;

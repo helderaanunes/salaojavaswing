@@ -8,8 +8,11 @@ public class Teste {
 
     public static void main(String[] args) {
         UsuarioBO bo = new UsuarioBO();
-        Usuario u =
-        bo.getUsuarioByLoginSenha("Manu", "1234");
-        System.out.println(u.getNome());
+        Usuario u = new Usuario();
+        u.setLogin("joao");
+        u.setNome("joao");
+        u.setSenha("a");
+        u = bo.save(u);
+        System.out.println(u.getId());
     }
 }

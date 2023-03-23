@@ -7,6 +7,7 @@ package br.com.cafi.salaodesktop.visao;
 import bo.UsuarioBO;
 import br.com.cafi.salaodesktop.controle.ControleLogin;
 import br.com.cafi.salaodesktop.modelo.entidades.Usuario;
+import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -55,6 +56,12 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Senha");
+
+        senhaPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                senhaPasswordFieldKeyPressed(evt);
+            }
+        });
 
         jLabel3.setText("Imagem");
 
@@ -131,7 +138,11 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_fecharButtonActionPerformed
 
     private void entrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarButtonActionPerformed
-        // 1 pegar o conteudo do formulário
+        verificarLogin();
+    }//GEN-LAST:event_entrarButtonActionPerformed
+
+    private void verificarLogin (){
+                // 1 pegar o conteudo do formulário
         String login = loginTextField.getText();
         String senha = new String (senhaPasswordField.getPassword());
          // instanciar um bo
@@ -147,7 +158,13 @@ public class TelaLogin extends javax.swing.JFrame {
              new TelaInicial(u).setVisible(true);
              this.dispose();
         }
-    }//GEN-LAST:event_entrarButtonActionPerformed
+    }
+    
+    private void senhaPasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_senhaPasswordFieldKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+           verificarLogin();
+       }
+    }//GEN-LAST:event_senhaPasswordFieldKeyPressed
 
     /**
      * @param args the command line arguments

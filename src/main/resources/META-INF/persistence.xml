@@ -11,6 +11,8 @@
     <class>br.com.cafi.salaodesktop.modelo.entidades.Produto</class>
     <class>br.com.cafi.salaodesktop.modelo.entidades.Servico</class>
     <class>br.com.cafi.salaodesktop.modelo.entidades.Usuario</class>
+    <class>br.com.cafi.salaodesktop.modelo.entidades.Permissao</class>
+    <class>br.com.cafi.salaodesktop.modelo.entidades.UsuarioPermissao</class>
     <properties>
       <!-- Propriedades JDBC -->
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

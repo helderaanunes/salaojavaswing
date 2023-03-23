@@ -4,6 +4,7 @@
  */
 package br.com.cafi.salaodesktop.visao;
 
+import bo.UsuarioPermissaoBO;
 import br.com.cafi.salaodesktop.modelo.entidades.Usuario;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -20,7 +21,13 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial(Usuario usuario) {
         initComponents();
-        this.usuarioLogado=usuario;
+        this.usuarioLogado = usuario;
+        verificarPermissao();
+    }
+
+    private void verificarPermissao() {
+        UsuarioPermissaoBO bo = new UsuarioPermissaoBO();
+        cadastrarProdutoMenuItem.setEnabled(bo.usuarioPossuiPermissao(usuarioLogado, "Cadastrar Produto"));
     }
 
     /**
@@ -36,7 +43,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        cadastrarProdutoMenuItem = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -70,13 +77,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jMenu4.setText("Produto");
 
-        jMenuItem1.setText("Cadastrar Produto");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        cadastrarProdutoMenuItem.setText("Cadastrar Produto");
+        cadastrarProdutoMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                cadastrarProdutoMenuItemActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem1);
+        jMenu4.add(cadastrarProdutoMenuItem);
 
         jMenuItem2.setText("Listar Produtos");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +190,7 @@ public class TelaInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void cadastrarProdutoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarProdutoMenuItemActionPerformed
         JInternalFrame jif = new JInternalFrame("Cadastrar Produto");
         jif.setBounds(0, 0, 400, 600);
         jif.setVisible(true);
@@ -192,7 +199,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jif.add(cp);
         desktopPane.add(jif);
 
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_cadastrarProdutoMenuItemActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         JInternalFrame jif = new JInternalFrame("Cadastrar Usuário");
@@ -212,21 +219,21 @@ public class TelaInicial extends javax.swing.JFrame {
         CadastrarServico obj = new CadastrarServico();
         jif.add(obj);
         desktopPane.add(jif);
-        
-       
+
+
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       JInternalFrame jif = new JInternalFrame("Listar Serviço");
+        JInternalFrame jif = new JInternalFrame("Listar Serviço");
         jif.setBounds(0, 0, 400, 600);
         jif.setVisible(true);
         jif.setClosable(true);
         ListarServico obj = new ListarServico(this);
         jif.add(obj);
-        desktopPane.add(jif);       
+        desktopPane.add(jif);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -236,22 +243,22 @@ public class TelaInicial extends javax.swing.JFrame {
         jif.setClosable(true);
         ListarProduto obj = new ListarProduto();
         jif.add(obj);
-        desktopPane.add(jif);    
+        desktopPane.add(jif);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-       JInternalFrame jif = new JInternalFrame("Listar Usuários");
+        JInternalFrame jif = new JInternalFrame("Listar Usuários");
         jif.setBounds(0, 0, 400, 600);
         jif.setVisible(true);
         jif.setClosable(true);
-        ListarUsuario obj = new ListarUsuario(this,jif);
+        ListarUsuario obj = new ListarUsuario(this, jif);
         jif.add(obj);
-        desktopPane.add(jif); 
+        desktopPane.add(jif);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        int op = JOptionPane.showConfirmDialog(null, usuarioLogado.getNome()+" deseja sair?");
-        if (op==JOptionPane.YES_OPTION){
+        int op = JOptionPane.showConfirmDialog(null, usuarioLogado.getNome() + " deseja sair?");
+        if (op == JOptionPane.YES_OPTION) {
             new TelaLogin().setVisible(true);
             this.dispose();
         }
@@ -299,10 +306,10 @@ public class TelaInicial extends javax.swing.JFrame {
     public void setDesktopPane(JDesktopPane desktopPane) {
         this.desktopPane = desktopPane;
     }
-    
-    
+
     private Usuario usuarioLogado;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem cadastrarProdutoMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -313,7 +320,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;

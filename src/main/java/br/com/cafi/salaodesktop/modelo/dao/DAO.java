@@ -15,8 +15,9 @@ public class DAO<PK, T> {
         return (T) entityManager.find(getTypeClass(), pk);
     }
  
-    public void save(T entity) {
+    public T save(T entity) {
         entityManager.persist(entity);
+        return entity;
     }
  
     public void update(T entity) {
