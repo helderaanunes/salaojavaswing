@@ -5,10 +5,13 @@
 package br.com.cafi.salaodesktop.visao;
 
 import bo.ProdutoBO;
+import bo.UsuarioBO;
 import br.com.cafi.salaodesktop.modelo.dao.ProdutoDAO;
 import br.com.cafi.salaodesktop.modelo.entidades.Produto;
 import br.com.cafi.salaodesktop.modelo.entidades.Servico;
+import br.com.cafi.salaodesktop.modelo.entidades.Usuario;
 import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,10 +24,14 @@ public class ListarProduto extends javax.swing.JPanel {
     /**
      * Creates new form ListarProduto
      */
-    public ListarProduto() {
+    public ListarProduto(TelaInicial telaInicial, JInternalFrame jif) {
         initComponents();
        carregarTabela();
+       this.telaInicial = telaInicial;
+       this.jif=jif;
     }
+    JInternalFrame jif;
+    TelaInicial telaInicial;
     private List<Produto> lista;
 
     private void carregarTabela(){
@@ -82,6 +89,11 @@ public class ListarProduto extends javax.swing.JPanel {
         jLabel1.setText("Produto");
 
         jButton1.setText("Editar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("remover");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -126,13 +138,28 @@ public class ListarProduto extends javax.swing.JPanel {
         DefaultTableModel model
                 = (DefaultTableModel) jTable1.getModel();
         Long id = (Long) model.getValueAt(jTable1.getSelectedRow(), 0);
-       // ProdutoDAO dao = new ProdutoDAO();
-     //   Produto obj = dao.getById(id);
-       // JOptionPane.showMessageDialog(null, "O id selecionado foi " + id+" "+obj.getDescricao());
         ProdutoBO bo = new ProdutoBO();
       //  bo.delete(obj);
         carregarTabela();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       DefaultTableModel model
+                = (DefaultTableModel) jTable1.getModel();
+        Long id = Long.parseLong(model.getValueAt(jTable1.getSelectedRow(), 0) + "");
+        ProdutoBO bo = new ProdutoBO();
+        Produto p = bo.getById(id);
+        //abrir novo internalframe, devido isso, precisamos do desktoppanel da 
+        //tela inicial
+        JInternalFrame jif = new JInternalFrame("Editar Usuário");
+        jif.setBounds(0, 0, 400, 600);
+        jif.setVisible(true);
+        jif.setClosable(true);
+        CadastrarProduto cp = new CadastrarProduto(jif,p);
+        jif.add(cp);
+        this.telaInicial.getDesktopPane().add(jif);
+        this.jif.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -35,6 +35,17 @@ public class ListarServico extends javax.swing.JPanel {
         }
     }
 
+    public void carregarTabela() {
+        DefaultTableModel model
+                = (DefaultTableModel) jTable1.getModel();
+        while (jTable1.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+        for (Servico s : lista) {
+            model.addRow(new Object[]{s.getId(), s.getDescricao(),
+                s.getPreco(), s.getTempo()});
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -126,6 +137,8 @@ public class ListarServico extends javax.swing.JPanel {
         Long id = (Long) model.getValueAt(jTable1.getSelectedRow(), 0);
         ServicoBO bo = new ServicoBO();
         bo.delete(bo.getById(id));
+carregarTabela();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

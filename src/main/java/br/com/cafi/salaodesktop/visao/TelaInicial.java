@@ -241,7 +241,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jif.setBounds(0, 0, 400, 600);
         jif.setVisible(true);
         jif.setClosable(true);
-        ListarProduto obj = new ListarProduto();
+        ListarProduto obj = new ListarProduto(this, jif);
         jif.add(obj);
         desktopPane.add(jif);
     }//GEN-LAST:event_jMenuItem2ActionPerformed

@@ -8,4 +8,5 @@ public class ProdutoDAO extends DAO<Long, Produto> {
     public ProdutoDAO(EntityManager entityManager) {
         super( entityManager);
     }
+
 }

@@ -135,9 +135,10 @@ public class CadastrarServico extends javax.swing.JPanel {
         servico.setPreco(Double.parseDouble(precoFormattedTextField.getText().replace(",",".")));
         servico.setTempo(Integer.parseInt(tempoFormattedTextField.getText()));
         
-//        if
-//        bo.save(objParaSalvar);
-//        
+        if(servico.getId()==0)
+        bo.save(servico);
+       else
+            bo.update(servico);
          JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         descricaoTextField.setText("");
         precoFormattedTextField.setText("");

@@ -68,6 +68,7 @@ public class CadastrarUsuario extends javax.swing.JPanel {
     }
     
     private void salvarUsuarioPermissao(){
+        System.out.println(" ---------------------\ntentando salver usuario permissao\n---------------------");
         pegarListaDeCheckboxSelecionadoEAddNaListaPermissao();
         UsuarioPermissaoBO bo = new UsuarioPermissaoBO();
         for (Permissao p :listaPermissoesSelecionadas)
@@ -75,6 +76,7 @@ public class CadastrarUsuario extends javax.swing.JPanel {
             UsuarioPermissao up = new UsuarioPermissao();
             up.setPermissao(p);
             up.setUsuario(usuario);
+            System.out.println(" ---------------------\n"+up.getPermissao().getDescricao()+" "+up.getUsuario().getNome()+"\n---------------------");
             bo.save(up);
         }
     }

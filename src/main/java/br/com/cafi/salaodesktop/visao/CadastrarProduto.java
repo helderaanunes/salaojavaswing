@@ -4,6 +4,7 @@
  */
 package br.com.cafi.salaodesktop.visao;
 
+import bo.ProdutoBO;
 import br.com.cafi.salaodesktop.controle.ControleCadastrarProduto;
 import br.com.cafi.salaodesktop.modelo.entidades.Produto;
 import javax.swing.JButton;
@@ -22,14 +23,13 @@ public class CadastrarProduto extends javax.swing.JPanel {
      */
     public CadastrarProduto(JInternalFrame jif) {
         initComponents();
-        salvarButton.addActionListener(new ControleCadastrarProduto(this));
+        produto=new Produto();
     }
 
     private Produto produto;
 
     public CadastrarProduto(JInternalFrame jif, Produto produto) {
         initComponents();
-        salvarButton.addActionListener(new ControleCadastrarProduto(this));
         this.produto=produto;
         this.descricaoTextField.setText(produto.getDescricao());
         this.precoVendaFormattedTextField.setText(produto.getPrecoVenda()+"");
@@ -61,11 +61,11 @@ public class CadastrarProduto extends javax.swing.JPanel {
 
         jLabel2.setText("Preço Compra");
 
-        precoCompraFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        precoCompraFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
 
         jLabel3.setText("Preço Venda");
 
-        precoVendaFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        precoVendaFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
 
         salvarButton.setText("Salvar");
         salvarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -78,7 +78,7 @@ public class CadastrarProduto extends javax.swing.JPanel {
 
         jLabel4.setText("Qnt Estoque");
 
-        quantidadeEstoqueFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        quantidadeEstoqueFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -141,9 +141,29 @@ public class CadastrarProduto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
-        // TODO add your handling code here:
+        if (validado()){
+            
+            produto.setDescricao(descricaoTextField.getText());
+            System.out.println("a bronca está em: "+precoCompraFormattedTextField.getText());
+            produto.setPrecoCompra(Double.parseDouble(precoCompraFormattedTextField.getText().replace(",",".")));
+            produto.setPrecoVenda(Double.parseDouble(precoVendaFormattedTextField.getText().replace(",",".")));
+            produto.setQuantidadeEstoque(Integer.parseInt(quantidadeEstoqueFormattedTextField.getText()));
+            
+            ProdutoBO bo = new ProdutoBO();
+            if(produto.getId()==null){
+                bo.save(produto);
+            }
+            else{
+                bo.update(produto);
+            }
+            limparFormulario();
+        }
     }//GEN-LAST:event_salvarButtonActionPerformed
 
+    public boolean validado(){
+        return true;
+    }
+    
     public JTextField getDescricaoTextField() {
         return descricaoTextField;
     }
@@ -176,4 +196,11 @@ public class CadastrarProduto extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField quantidadeEstoqueFormattedTextField;
     private javax.swing.JButton salvarButton;
     // End of variables declaration//GEN-END:variables
+
+    private void limparFormulario() {
+        descricaoTextField.setText("");
+        precoCompraFormattedTextField.setText("");
+        precoVendaFormattedTextField.setText("");
+        quantidadeEstoqueFormattedTextField.setText("");
+    }
 }

@@ -14,42 +14,55 @@ import java.util.List;
  * @author Aluno
  */
 public class ServicoBO {
+
     private ServicoDAO dao;
-     
+
     private SimpleEntityManager simpleEntityManager;
-     
-    public ServicoBO(){        
+
+    public ServicoBO() {
         this.simpleEntityManager = new SimpleEntityManager("HELDERnomeDoPersistence");
         dao = new ServicoDAO(simpleEntityManager.getEntityManager());
     }
-     
-    public void save(Servico obj){
-        try{
+
+    public void save(Servico obj) {
+        try {
             simpleEntityManager.beginTransaction();
 
             dao.save(obj);
             simpleEntityManager.commit();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             simpleEntityManager.rollBack();
         }
     }
-    public void delete(Servico obj){
-        try{
-            simpleEntityManager.beginTransaction();
 
+    public void delete(Servico obj) {
+        try {
+            simpleEntityManager.beginTransaction();
             dao.delete(obj);
             simpleEntityManager.commit();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             simpleEntityManager.rollBack();
         }
     }
-    public Servico getById(Long id){
+
+    public Servico getById(Long id) {
         return dao.getById(id);
     }
-     
-    public List<Servico> findAll(){
+
+    public List<Servico> findAll() {
         return dao.findAll();
+    }
+
+    public void update(Servico obj) {
+        try {
+            simpleEntityManager.beginTransaction();
+            dao.update(obj);
+            simpleEntityManager.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            simpleEntityManager.rollBack();
+        }
     }
 }
